@@ -1,0 +1,21 @@
+# pyproject.tomlのビルドツールを指定します。
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+# プロジェクトの設定を書きます。
+[project]
+name = "package_json_analyzer"
+version = "0.0.1"
+description = "NPM package.json Analyzer"
+requires-python = ">=3.10"
+authors = [{ name = "mkybdev" }]
+# 依存関係も書けます。
+dependencies = []
+# インストール時のコマンドを書きます。
+[project.scripts]
+package-json-analyzer = "src.main:main"
+
+# どのフォルダをモジュールとして扱うかを書きます。
+[tool.setuptools]
+py-modules = ['src']
