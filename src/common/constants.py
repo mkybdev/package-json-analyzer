@@ -1,1 +1,2 @@
 DUMP_PATH = None
+OUTPUT_PATH = None

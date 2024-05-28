@@ -1,25 +1,50 @@
 import argparse
+import os
 
 from .preprocessing.load import load
 from .preprocessing.preprocess import preprocess
 from .common.export_df import export_df
+from .common.logger import *
+from .common import constants
+from .intersection.intersection import Intersection
 
 
 def main():
 
     parser = argparse.ArgumentParser(description="Analyze package.json files.")
     parser.add_argument(
-        "dir",
+        "target",
         type=str,
-        help="Directory containing package.json files OR name of dumped dataset",
+        help="Path to the directory containing package.json files / Name of dumped dataset",
     )
-    parser.add_argument("--sample", type=int, help="Number of samples to analyze")
-    parser.add_argument("--dump", type=str, help="Name of the dataset to dump")
+    parser.add_argument("-s", "--sample", type=int, help="Number of samples to analyze")
+    parser.add_argument(
+        "-n", "--name", type=str, help="Name of the dataset to be dumped"
+    )
+    parser.add_argument(
+        "-o",
+        "--out",
+        type=str,
+        default=os.path.join(os.path.expanduser("~"), "Downloads"),
+        help="Output directory",
+    )
     args = parser.parse_args()
 
-    rawData = load(args.dir, args.sample, args.dump)
+    if os.path.exists(args.out):
+        if args.name is None:
+            constants.OUTPUT_PATH = os.path.join(args.out, "pja_output")
+        else:
+            constants.OUTPUT_PATH = os.path.join(args.out, args.name)
+        os.makedirs(constants.OUTPUT_PATH, exist_ok=True)
+    else:
+        error("Output directory does not exist.")
+
+    rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)
-    export_df(data)
+
+    intersection = Intersection(data, ["dependencies", "devDependencies"])
+    export_df(intersection.duplication, "intersection", "duplication")
+    export_df(intersection.frequency, "intersection", "frequency")
 
 
 if __name__ == "__main__":

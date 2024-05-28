@@ -9,7 +9,7 @@ from ..common.logger import *
 from ..common import constants
 
 
-def load(root_dir, sample, dump):
+def load(root_dir, sample, name, out_dir):
 
     loaded_data = []
 
@@ -26,12 +26,12 @@ def load(root_dir, sample, dump):
                     except json.JSONDecodeError as e:
                         error(f"Error decoding JSON from {package_json_path}: {e}")
 
-        if dump is None:
+        if name is None:
             info("Loaded data, but dump name not provided. Continuing without dumping.")
 
         else:
             cache_dir = os.path.join(
-                user_cache_dir("package-json-analyzer", "pja"), dump
+                user_cache_dir("package-json-analyzer", "pja"), name
             )
             os.makedirs(cache_dir, exist_ok=True)
             constants.DUMP_PATH = cache_dir
@@ -46,6 +46,9 @@ def load(root_dir, sample, dump):
         loaded_data = load_dump(root_dir)
         if loaded_data is None:
             error("No such directory or dumped dataset.")
+        else:
+            os.removedirs(constants.OUTPUT_PATH)
+            constants.OUTPUT_PATH = os.path.join(out_dir, root_dir)
 
     if sample is None:
         return loaded_data
