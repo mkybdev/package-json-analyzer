@@ -11,7 +11,15 @@ description = "NPM package.json Analyzer"
 requires-python = ">=3.10"
 authors = [{ name = "mkybdev" }]
 # 依存関係も書けます。
-dependencies = []
+dependencies = [
+    'appdirs',
+    'tqdm',
+    'pandas',
+    'IPython',
+    'matplotlib',
+    'seaborn',
+    'pyvis'
+]
 # インストール時のコマンドを書きます。
 [project.scripts]
 package-json-analyzer = "src.main:main"
