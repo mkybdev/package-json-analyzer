@@ -9,7 +9,7 @@ from ..common.logger import *
 from ..common import constants
 
 
-def load(root_dir, sample, name, out_dir):
+def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
 
     loaded_data = []
 

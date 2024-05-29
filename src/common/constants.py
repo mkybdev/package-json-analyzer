@@ -1,2 +1,2 @@
-DUMP_PATH = None
-OUTPUT_PATH = None
+DUMP_PATH: str = ""
+OUTPUT_PATH: str = ""

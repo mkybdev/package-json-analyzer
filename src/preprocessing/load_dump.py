@@ -6,7 +6,7 @@ from ..common.logger import *
 from ..common import constants
 
 
-def load_dump(name):
+def load_dump(name: str):
 
     cache_dir = os.path.join(user_cache_dir("package-json-analyzer", "pja"), name)
     constants.DUMP_PATH = cache_dir

@@ -43,8 +43,8 @@ def main():
     data = preprocess(rawData)
 
     intersection = Intersection(data, ["dependencies", "devDependencies"])
-    export_df(intersection.duplication, "intersection", "duplication")
-    export_df(intersection.frequency, "intersection", "frequency")
+    export_df(intersection.duplication(), "intersection", "duplication")
+    export_df(intersection.frequency(), "intersection", "frequency")
 
 
 if __name__ == "__main__":

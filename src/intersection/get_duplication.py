@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_duplication(df, cols):
+def get_duplication(df: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
     target = df[["name"] + cols].dropna()
     res = []
     for _, row in target.iterrows():

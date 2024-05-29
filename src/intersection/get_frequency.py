@@ -3,7 +3,9 @@ from collections import Counter
 import pandas as pd
 
 
-def get_frequency(df, duplication, cols):
+def get_frequency(
+    df: pd.DataFrame, duplication: pd.DataFrame, cols: list[str]
+) -> pd.DataFrame:
 
     all_elements = [
         element for sublist in duplication["duplication"] for element in sublist

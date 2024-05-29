@@ -3,7 +3,7 @@ import pandas as pd
 from src.intersection.get_duplication import get_duplication
 
 
-def sort_lists_in_dataframe(df):
+def sort_lists_in_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     sorted_df = df.copy()
     for col in sorted_df.columns:
         sorted_df[col] = sorted_df[col].apply(
