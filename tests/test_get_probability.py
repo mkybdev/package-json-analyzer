@@ -11,10 +11,9 @@ class TestGetProbability(unittest.TestCase):
                 "df": pd.Series(
                     [["A"], ["B"], ["C"], ["C"], ["A"], ["B"], ["A"], ["A"]],
                 ),
-                "expected": pd.DataFrame(
-                    {
-                        "probability": [0.5, 0.25, 0.25],
-                    },
+                "expected": pd.Series(
+                    [0.5, 0.25, 0.25],
+                    name="probability",
                     index=["A", "B", "C"],
                 ),
             },
@@ -32,10 +31,9 @@ class TestGetProbability(unittest.TestCase):
                         ["A", "E"],
                     ],
                 ),
-                "expected": pd.DataFrame(
-                    {
-                        "probability": [0.5, 0.5, 0.625, 0.5, 0.5],
-                    },
+                "expected": pd.Series(
+                    [0.5, 0.5, 0.625, 0.5, 0.5],
+                    name="probability",
                     index=["A", "B", "C", "D", "E"],
                 ),
             },
@@ -43,7 +41,7 @@ class TestGetProbability(unittest.TestCase):
         for i, test_case in enumerate(test_cases):
             with self.subTest(i=i):
                 result = get_probability(test_case["df"])
-                pd.testing.assert_frame_equal(
+                pd.testing.assert_series_equal(
                     result,
                     test_case["expected"],
                     check_like=True,

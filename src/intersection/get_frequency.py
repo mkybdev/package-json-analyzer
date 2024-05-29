@@ -1,6 +1,7 @@
 from ..common.logger import *
 from collections import Counter
 import pandas as pd
+from tqdm import tqdm
 
 
 def get_frequency(
@@ -21,7 +22,11 @@ def get_frequency(
 
     elements_to_check = frequency_df["Element"].tolist()
 
-    for i, series in enumerate([df[col].dropna() for col in cols]):
+    for i, series in tqdm(
+        enumerate([df[col].dropna() for col in cols]),
+        desc="INTERSECTION: CALCULATING FREQUENCY",
+        leave=False,
+    ):
         # 各要素がdictのキーとして出現する回数をカウント
         key_counts = {element: 0 for element in elements_to_check}
         for d in series:

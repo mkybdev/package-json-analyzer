@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def extract_elements(row) -> list:
-    match type(row):
+    match row:
         # 集合
         case list() | tuple() | set():
             return list(row)

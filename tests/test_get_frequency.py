@@ -41,7 +41,9 @@ class TestGetFrequency(unittest.TestCase):
         for i, test_case in enumerate(test_cases):
             with self.subTest(i=i):
                 result = get_frequency(
-                    test_case["df"], get_duplication(test_case["df"], ["A", "B"]), ["A", "B"]
+                    test_case["df"],
+                    get_duplication(test_case["df"], ["A", "B"]),
+                    ["A", "B"],
                 )
                 pd.testing.assert_frame_equal(
                     result, test_case["expected"], check_like=True

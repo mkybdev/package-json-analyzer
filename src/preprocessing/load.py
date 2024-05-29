@@ -47,12 +47,18 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
         if loaded_data is None:
             error("No such directory or dumped dataset.")
         else:
-            os.removedirs(constants.OUTPUT_PATH)
+            try:
+                os.rmdir(constants.OUTPUT_PATH)
+            except:
+                pass
             constants.OUTPUT_PATH = os.path.join(out_dir, root_dir)
 
     if sample is None:
+        info(f"Loaded {len(loaded_data)} packages.")
         return loaded_data
     else:
         if sample > len(loaded_data):
             error("Sample size exceeds the number of loaded packages.")
+        constants.IS_SAMPLED = True
+        info(f"Sampling {sample} packages from {len(loaded_data)} loaded packages.")
         return random.sample(loaded_data, sample)

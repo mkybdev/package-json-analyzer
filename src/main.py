@@ -7,6 +7,7 @@ from .common.export_df import export_df
 from .common.logger import *
 from .common import constants
 from .intersection.intersection import Intersection
+from .cooccurrence.cooccurrence import Cooccurrence
 
 
 def main():
@@ -45,6 +46,15 @@ def main():
     intersection = Intersection(data, ["dependencies", "devDependencies"])
     export_df(intersection.duplication(), "intersection", "duplication")
     export_df(intersection.frequency(), "intersection", "frequency")
+
+    cooccurrence = Cooccurrence(
+        data, ["license", "keywords", "files", "dependencies", "devDependencies"]
+    )
+    export_df(
+        cooccurrence.conditional_probability(),
+        "cooccurrence",
+        "conditional_probability",
+    )
 
 
 if __name__ == "__main__":
