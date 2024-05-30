@@ -2,7 +2,7 @@ import pandas as pd
 
 from .get_probability import get_probability
 from .get_conditional_probability import get_conditional_probability
-from .format_df import format_df
+from ..common.format_df import format_df
 from ..common.logger import *
 
 

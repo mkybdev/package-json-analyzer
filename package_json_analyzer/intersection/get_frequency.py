@@ -1,7 +1,7 @@
 from ..common.logger import *
 from collections import Counter
 import pandas as pd
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
 
 
 def get_frequency(

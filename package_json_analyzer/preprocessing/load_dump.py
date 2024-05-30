@@ -1,6 +1,6 @@
 import os
 import pickle
-from appdirs import user_cache_dir
+from appdirs import user_cache_dir # type: ignore
 
 from ..common.logger import *
 from ..common import constants

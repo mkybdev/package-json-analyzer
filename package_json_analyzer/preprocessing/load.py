@@ -2,7 +2,7 @@ import os
 import pickle
 import random
 import json
-from appdirs import user_cache_dir
+from appdirs import user_cache_dir # type: ignore
 
 from .load_dump import load_dump
 from ..common.logger import *

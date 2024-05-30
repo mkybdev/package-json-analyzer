@@ -22,8 +22,8 @@ dependencies = [
 ]
 # インストール時のコマンドを書きます。
 [project.scripts]
-package_json_analyzer = "src.main:main"
+package_json_analyzer = "package_json_analyzer.main:main"
 
 # どのフォルダをモジュールとして扱うかを書きます。
 [tool.setuptools]
-py-modules = ['src']
+py-modules = ['package_json_analyzer']

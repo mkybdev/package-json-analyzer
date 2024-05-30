@@ -1,5 +1,5 @@
 import pandas as pd
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
 
 
 def get_duplication(df: pd.DataFrame, cols: list[str]) -> pd.DataFrame:

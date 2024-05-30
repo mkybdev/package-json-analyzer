@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
 from collections import Counter
 from ..common import constants
 

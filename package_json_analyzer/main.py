@@ -1,6 +1,8 @@
 import argparse
 import os
 
+from package_json_analyzer.clustering.clustering import Clustering
+
 from .preprocessing.load import load
 from .preprocessing.preprocess import preprocess
 from .common.export_df import export_df
@@ -55,6 +57,11 @@ def main():
         "cooccurrence",
         "conditional_probability",
     )
+
+    clustering = Clustering(
+        data, ["scripts", "devDependencies", "dependencies", "keywords"]
+    )
+    export_df(clustering.kmeans(), "clustering", "kmeans")
 
 
 if __name__ == "__main__":
