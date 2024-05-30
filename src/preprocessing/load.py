@@ -31,7 +31,7 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
 
         else:
             cache_dir = os.path.join(
-                user_cache_dir("package-json-analyzer", "pja"), name
+                user_cache_dir("package_json_analyzer", "pja"), name
             )
             os.makedirs(cache_dir, exist_ok=True)
             constants.DUMP_PATH = cache_dir

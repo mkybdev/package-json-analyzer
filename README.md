@@ -1,4 +1,4 @@
-# package-json-analyzer
+# package_json_analyzer
 NPM package.json Analyzer
 
 # TODO

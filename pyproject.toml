@@ -22,7 +22,7 @@ dependencies = [
 ]
 # インストール時のコマンドを書きます。
 [project.scripts]
-package-json-analyzer = "src.main:main"
+package_json_analyzer = "src.main:main"
 
 # どのフォルダをモジュールとして扱うかを書きます。
 [tool.setuptools]
