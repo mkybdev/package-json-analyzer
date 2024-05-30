@@ -1,19 +1,20 @@
 import pandas as pd
 import os
-from tqdm import tqdm # type: ignore
+from tqdm import tqdm  # type: ignore
 from collections import Counter
 from ..common import constants
 
 
 def get_conditional_probability(
     df: pd.DataFrame, probabilities: dict[str, pd.Series], cols: list[str]
-) -> pd.DataFrame:
+) -> dict[str, pd.DataFrame]:
 
     cache_dir = os.path.join(constants.DUMP_PATH, "conditional_probabilities")
     os.makedirs(cache_dir, exist_ok=True)
     cached_files = os.listdir(cache_dir)
 
-    conditional_probabilities = pd.DataFrame()
+    # conditional_probabilities = pd.DataFrame()
+    conditional_probabilities = dict()
 
     # 条件付き共起確率を計算する
     probs = {col: probabilities[col] for col in cols}
@@ -69,9 +70,10 @@ def get_conditional_probability(
                         combination,
                     )
                     cond_prob_df.to_csv(f"{cache_dir}/{combination}.csv")
-                conditional_probabilities = pd.concat(
-                    [conditional_probabilities, cond_prob_df],
-                    ignore_index=True,
-                )
+                # conditional_probabilities = pd.concat(
+                #     [conditional_probabilities, cond_prob_df],
+                #     ignore_index=True,
+                # )
+                conditional_probabilities[combination] = cond_prob_df
 
     return conditional_probabilities

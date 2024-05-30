@@ -46,22 +46,18 @@ def main():
     data = preprocess(rawData)
 
     intersection = Intersection(data, ["dependencies", "devDependencies"])
-    export_df(intersection.duplication(), "intersection", "duplication")
-    export_df(intersection.frequency(), "intersection", "frequency")
+    intersection.run()
 
     cooccurrence = Cooccurrence(
         data, ["license", "keywords", "files", "dependencies", "devDependencies"]
     )
-    export_df(
-        cooccurrence.conditional_probability(),
-        "cooccurrence",
-        "conditional_probability",
-    )
+    cooccurrence.run()
+    
 
     clustering = Clustering(
         data, ["scripts", "devDependencies", "dependencies", "keywords"]
     )
-    export_df(clustering.kmeans(), "clustering", "kmeans")
+    clustering.run()
 
 
 if __name__ == "__main__":

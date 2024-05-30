@@ -1,8 +1,10 @@
 from .get_duplication import get_duplication
 from .get_frequency import get_frequency
 from ..common.logger import *
+from ..common.export_df import export_df
 
 import pandas as pd
+from tqdm import tqdm  # type: ignore
 
 
 class Intersection:
@@ -23,3 +25,10 @@ class Intersection:
             get_duplication(self.df, self.cols) if self.dup is None else self.dup,
             self.cols,
         )
+
+    def run(self):
+        for i in tqdm(range(2), desc="RUNNING INTERSECTION ANALYSIS"):
+            if i == 0:
+                export_df(self.duplication(), "intersection", "duplication", quiet=True)
+            else:
+                export_df(self.frequency(), "intersection", "frequency", quiet=True)

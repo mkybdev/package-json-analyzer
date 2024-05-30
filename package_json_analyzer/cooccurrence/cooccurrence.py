@@ -1,9 +1,11 @@
 import pandas as pd
+from tqdm import tqdm  # type: ignore
 
 from .get_probability import get_probability
 from .get_conditional_probability import get_conditional_probability
 from ..common.format_df import format_df
 from ..common.logger import *
+from ..common.export_df import export_df
 
 
 class Cooccurrence:
@@ -14,7 +16,7 @@ class Cooccurrence:
         self.cols = cols
         self.formatted_df = format_df(df, cols)
 
-    def conditional_probability(self) -> pd.DataFrame:
+    def conditional_probability(self) -> dict[str, pd.DataFrame]:
         return get_conditional_probability(
             self.formatted_df,
             {
@@ -23,3 +25,12 @@ class Cooccurrence:
             },
             self.cols,
         )
+
+    def run(self):
+        conditional_probabilities = self.conditional_probability()
+        for key, value in tqdm(
+            conditional_probabilities.items(), desc="RUNNING COOCCURRENCE ANALYSIS"
+        ):
+            export_df(
+                value, "cooccurrence/conditional_probability", f"{key}", quiet=True
+            )
