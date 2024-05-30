@@ -1,15 +1,12 @@
 import argparse
 import os
 
-from package_json_analyzer.clustering.clustering import Clustering
+from package_json_analyzer.common.run_all import run_all
 
 from .preprocessing.load import load
 from .preprocessing.preprocess import preprocess
-from .common.export_df import export_df
 from .common.logger import *
 from .common import constants
-from .intersection.intersection import Intersection
-from .cooccurrence.cooccurrence import Cooccurrence
 
 
 def main():
@@ -45,19 +42,7 @@ def main():
     rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)
 
-    intersection = Intersection(data, ["dependencies", "devDependencies"])
-    intersection.run()
-
-    cooccurrence = Cooccurrence(
-        data, ["license", "keywords", "files", "dependencies", "devDependencies"]
-    )
-    cooccurrence.run()
-    
-
-    clustering = Clustering(
-        data, ["scripts", "devDependencies", "dependencies", "keywords"]
-    )
-    clustering.run()
+    run_all(data)
 
 
 if __name__ == "__main__":
