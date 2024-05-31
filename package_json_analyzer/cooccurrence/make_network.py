@@ -1,9 +1,9 @@
 import networkx as nx  # type: ignore
 from tqdm import tqdm  # type: ignore
 import matplotlib.pyplot as plt
-import os
 
-from ..common import constants
+from package_json_analyzer.common.export_image import export_image
+
 from ..common.logger import *
 
 
@@ -16,6 +16,7 @@ def make_network(flatten_conditional_probabilities):
             continue
         try:
             # ネットワーク図の描画
+            fig = plt.figure()
             G = nx.DiGraph()
 
             # ノードとエッジを追加
@@ -46,11 +47,6 @@ def make_network(flatten_conditional_probabilities):
                 font_weight="normal",
             )
             plt.title(key)
-
-            dir_path = os.path.join(constants.OUTPUT_PATH, "cooccurrence/network")
-            os.makedirs(dir_path, exist_ok=True)
-            file_path = os.path.join(dir_path, key + ".png")
-            plt.savefig(file_path)
-            plt.close()
+            export_image(fig, key, "cooccurrence/network", quiet=True)
         except:
             info(f"Failed to make network of {key}. Skipping...")

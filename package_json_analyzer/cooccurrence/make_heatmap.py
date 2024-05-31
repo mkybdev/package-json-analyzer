@@ -3,8 +3,8 @@ from tqdm import tqdm  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
 import pandas as pd
 import seaborn as sns  # type: ignore
-import os
-from ..common import constants
+
+from package_json_analyzer.common.export_image import export_image
 from ..common.logger import *
 
 
@@ -37,16 +37,12 @@ def make_heatmap(flatten_conditional_probabilities: dict[str, pd.DataFrame]):
             continue
         # ヒートマップを描画
         try:
+            fig = plt.figure()
             sns.heatmap(pivot_table, annot=False, fmt=".2f", cmap="YlGnBu")
             plt.title(convert_format(key))
             plt.xlabel("Target")
             plt.ylabel("Base")
             plt.tight_layout()
-
-            dir_path = os.path.join(constants.OUTPUT_PATH, "cooccurrence/heatmap")
-            os.makedirs(dir_path, exist_ok=True)
-            file_path = os.path.join(dir_path, key + ".png")
-            plt.savefig(file_path)
-            plt.close()
+            export_image(fig, key, "cooccurrence/heatmap", quiet=True)
         except:
             info(f"Failed to make heatmap of {key}. Skipping...")
