@@ -2,6 +2,10 @@ from sklearn.cluster import KMeans  # type: ignore
 import pandas as pd
 from collections import Counter
 
+from package_json_analyzer.clustering.get_pca_loadings import get_loadings
+from package_json_analyzer.clustering.pca import pca  # type: ignore
+from package_json_analyzer.clustering.tsne import tsne  # type: ignore
+
 from ..common.logger import *
 
 
@@ -15,6 +19,9 @@ def kmeans(
         kmeans.fit(X_tfidf)
     except:
         error("An error occurred while running KMeans. Maybe the dataset is too small.")
+
+    pca(X, X_tfidf, kmeans)
+    tsne(X, X_tfidf, kmeans)
 
     res = []
 

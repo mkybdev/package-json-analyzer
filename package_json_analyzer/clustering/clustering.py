@@ -18,7 +18,7 @@ class Clustering:
         self.X_tfidf = vectorize(self.X)
         self.y = self.df["name"]
 
-    def kmeans(self) -> list[pd.DataFrame]:
+    def kmeans(self) -> list[tuple[pd.DataFrame, pd.DataFrame]]:
         return km(self.X, self.X_tfidf, self.y)
 
     def run(self):
@@ -26,5 +26,5 @@ class Clustering:
         for i, (kmeans_df, kmeans_info_df) in tqdm(
             enumerate(kmeans_list), desc="RUNNING CLUSTERING ANALYSIS"
         ):
-            export_df(kmeans_df, "clustering/kmeans", str(i), quiet=True)
-            export_df(kmeans_info_df, "clustering/kmeans", f"{i}_info", quiet=True)
+            export_df(kmeans_df, "clustering/kmeans/cluster", str(i), quiet=True)
+            export_df(kmeans_info_df, "clustering/kmeans/info", f"{i}_info", quiet=True)
