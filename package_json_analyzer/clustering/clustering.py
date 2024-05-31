@@ -23,7 +23,8 @@ class Clustering:
 
     def run(self):
         kmeans_list = self.kmeans()
-        for i, kmeans_df in tqdm(
+        for i, (kmeans_df, kmeans_info_df) in tqdm(
             enumerate(kmeans_list), desc="RUNNING CLUSTERING ANALYSIS"
         ):
             export_df(kmeans_df, "clustering/kmeans", str(i), quiet=True)
+            export_df(kmeans_info_df, "clustering/kmeans", f"{i}_info", quiet=True)

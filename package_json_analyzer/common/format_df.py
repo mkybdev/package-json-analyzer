@@ -20,5 +20,5 @@ def format_df(df: pd.DataFrame, cols: list[str], index: str = "") -> pd.DataFram
     return (
         df[cols + ([index] if index != "" else [])]
         .dropna()
-        .apply(lambda x: x.apply(extract_elements) if x.name in cols else x)
+        .apply(lambda x: x.apply(extract_elements))
     )

@@ -1,6 +1,9 @@
 import pandas as pd
 from tqdm import tqdm  # type: ignore
 
+from package_json_analyzer.cooccurrence.make_heatmap import make_heatmap # type: ignore
+from package_json_analyzer.cooccurrence.make_network import make_network  # type: ignore
+
 from .get_probability import get_probability
 from .get_conditional_probability import get_conditional_probability
 from ..common.format_df import format_df
@@ -34,3 +37,5 @@ class Cooccurrence:
             export_df(
                 value, "cooccurrence/conditional_probability", f"{key}", quiet=True
             )
+        make_heatmap(conditional_probabilities)
+        make_network(conditional_probabilities)
