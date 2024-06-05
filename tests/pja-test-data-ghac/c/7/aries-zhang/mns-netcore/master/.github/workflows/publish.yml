@@ -1,0 +1,27 @@
+name: NuGet Publish
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  pack:
+    name: Build and publish NuGet package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+
+      - name: Build solution and generate NuGet package
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: make pack
