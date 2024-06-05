@@ -42,7 +42,9 @@ def main():
     rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)
 
-    run_all(data)
+    # run_all(data)
+    print(data.head(10))
+    print(data.columns)
 
 
 if __name__ == "__main__":

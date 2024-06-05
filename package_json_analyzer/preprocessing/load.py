@@ -2,7 +2,8 @@ import os
 import pickle
 import random
 import json
-from appdirs import user_cache_dir # type: ignore
+import yaml  # type: ignore
+from appdirs import user_cache_dir  # type: ignore
 
 from .load_dump import load_dump
 from ..common.logger import *
@@ -25,6 +26,16 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
                         loaded_data.append(package_data)
                     except json.JSONDecodeError as e:
                         error(f"Error decoding JSON from {package_json_path}: {e}")
+            elif any(filename.endswith(".yml") for filename in filenames):
+                for filename in filenames:
+                    if filename.endswith(".yml"):
+                        yml_path = os.path.join(dirpath, filename)
+                        with open(yml_path, "r", encoding="utf-8") as f:
+                            try:
+                                yml_data = yaml.safe_load(f)
+                                loaded_data.append(yml_data)
+                            except:
+                                error(f"Error decoding YAML from {yml_path}")
 
         if name is None:
             info("Loaded data, but dump name not provided. Continuing without dumping.")

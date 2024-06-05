@@ -18,7 +18,8 @@ dependencies = [
     'IPython',
     'matplotlib',
     'seaborn',
-    'pyvis'
+    'pyvis',
+    'PyYAML'
 ]
 # インストール時のコマンドを書きます。
 [project.scripts]
