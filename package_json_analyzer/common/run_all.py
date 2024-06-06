@@ -3,16 +3,15 @@ from package_json_analyzer.cooccurrence.cooccurrence import Cooccurrence
 from package_json_analyzer.clustering.clustering import Clustering
 
 
-def run_all(data):
-    intersection = Intersection(data, ["dependencies", "devDependencies"])
-    intersection.run()
+def run_all(data, intersection_list=None, cooccurrence_list=None, clustering_list=None):
+    if intersection_list:
+        intersection = Intersection(data, intersection_list)
+        intersection.run()
 
-    cooccurrence = Cooccurrence(
-        data, ["license", "keywords", "files", "dependencies", "devDependencies"]
-    )
-    cooccurrence.run()
+    if cooccurrence_list:
+        cooccurrence = Cooccurrence(data, cooccurrence_list)
+        cooccurrence.run()
 
-    clustering = Clustering(
-        data, ["scripts", "devDependencies", "dependencies", "keywords"]
-    )
-    clustering.run()
+    if clustering_list:
+        clustering = Clustering(data, clustering_list)
+        clustering.run()

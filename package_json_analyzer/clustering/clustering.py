@@ -22,6 +22,7 @@ class Clustering:
         return km(self.X, self.X_tfidf, self.y)
 
     def run(self):
+        print()
         kmeans_list = self.kmeans()
         for i, (kmeans_df, kmeans_info_df) in tqdm(
             enumerate(kmeans_list), desc="RUNNING CLUSTERING ANALYSIS"

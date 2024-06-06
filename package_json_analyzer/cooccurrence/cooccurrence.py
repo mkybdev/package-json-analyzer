@@ -1,7 +1,7 @@
 import pandas as pd
 from tqdm import tqdm  # type: ignore
 
-from package_json_analyzer.cooccurrence.make_heatmap import make_heatmap # type: ignore
+from package_json_analyzer.cooccurrence.make_heatmap import make_heatmap  # type: ignore
 from package_json_analyzer.cooccurrence.make_network import make_network  # type: ignore
 
 from .get_probability import get_probability
@@ -30,6 +30,7 @@ class Cooccurrence:
         )
 
     def run(self):
+        print()
         conditional_probabilities = self.conditional_probability()
         for key, value in tqdm(
             conditional_probabilities.items(), desc="RUNNING COOCCURRENCE ANALYSIS"
@@ -37,5 +38,7 @@ class Cooccurrence:
             export_df(
                 value, "cooccurrence/conditional_probability", f"{key}", quiet=True
             )
+        print()
         make_heatmap(conditional_probabilities)
+        print()
         make_network(conditional_probabilities)

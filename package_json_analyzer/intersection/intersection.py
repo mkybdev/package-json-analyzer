@@ -27,6 +27,7 @@ class Intersection:
         )
 
     def run(self):
+        print()
         for i in tqdm(range(2), desc="RUNNING INTERSECTION ANALYSIS"):
             if i == 0:
                 export_df(self.duplication(), "intersection", "duplication", quiet=True)

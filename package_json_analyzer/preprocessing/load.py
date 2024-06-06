@@ -2,6 +2,7 @@ import os
 import pickle
 import random
 import json
+from tqdm import tqdm  # type: ignore
 import yaml  # type: ignore
 import yamlcore  # type: ignore
 from appdirs import user_cache_dir  # type: ignore
@@ -13,11 +14,12 @@ from ..common import constants
 
 def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
 
-    loaded_data = []
+    loaded_data: list[dict] = []
+    skipped_files = []
 
     if os.path.exists(root_dir):
 
-        for dirpath, _, filenames in os.walk(root_dir):
+        for dirpath, _, filenames in tqdm(os.walk(root_dir), desc="LOADING DATA"):
 
             if "package.json" in filenames:
                 package_json_path = os.path.join(dirpath, "package.json")
@@ -25,10 +27,8 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
                     try:
                         package_data = json.load(f)
                         loaded_data.append(package_data)
-                    except json.JSONDecodeError as e:
-                        print(
-                            f"Error decoding JSON from {package_json_path}: {e}. Skipping this file."
-                        )
+                    except:
+                        skipped_files.append(package_json_path)
             elif any(filename.endswith(".yml") for filename in filenames):
                 for filename in filenames:
                     if filename.endswith(".yml"):
@@ -38,9 +38,10 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
                                 yml_data = yaml.load(f, Loader=yamlcore.CoreLoader)
                                 loaded_data.append(yml_data)
                             except:
-                                print(
-                                    f"Error decoding YAML from {yml_path}. Skipping this file."
-                                )
+                                skipped_files.append(yml_path)
+
+        if skipped_files:
+            info(f"Skipped loading {len(skipped_files)} files: {skipped_files}")
 
         if name is None:
             info("Loaded data, but dump name not provided. Continuing without dumping.")
@@ -60,7 +61,7 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
 
     else:
         loaded_data = load_dump(root_dir)
-        if loaded_data is None:
+        if loaded_data == []:
             error("No such directory or dumped dataset.")
         else:
             try:

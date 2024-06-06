@@ -1,12 +1,12 @@
 import os
 import pickle
-from appdirs import user_cache_dir # type: ignore
+from appdirs import user_cache_dir  # type: ignore
 
 from ..common.logger import *
 from ..common import constants
 
 
-def load_dump(name: str):
+def load_dump(name: str) -> list[dict]:
 
     cache_dir = os.path.join(user_cache_dir("package_json_analyzer", "pja"), name)
     constants.DUMP_PATH = cache_dir
@@ -18,4 +18,4 @@ def load_dump(name: str):
             info("Loaded data from cache.")
         return loaded_data
     else:
-        return None
+        return []

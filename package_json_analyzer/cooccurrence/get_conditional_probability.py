@@ -9,9 +9,14 @@ def get_conditional_probability(
     df: pd.DataFrame, probabilities: dict[str, pd.Series], cols: list[str]
 ) -> dict[str, pd.DataFrame]:
 
-    cache_dir = os.path.join(constants.DUMP_PATH, "conditional_probabilities")
-    os.makedirs(cache_dir, exist_ok=True)
-    cached_files = os.listdir(cache_dir)
+    cache_dir = (
+        os.path.join(constants.DUMP_PATH, "conditional_probabilities")
+        if constants.DUMP_PATH
+        else None
+    )
+    if cache_dir:
+        os.makedirs(cache_dir, exist_ok=True)
+    cached_files = os.listdir(cache_dir) if cache_dir else []
 
     # conditional_probabilities = pd.DataFrame()
     conditional_probabilities = dict()
@@ -69,7 +74,8 @@ def get_conditional_probability(
                         calculate_conditional_probabilities(base_column, target_column),
                         combination,
                     )
-                    cond_prob_df.to_csv(f"{cache_dir}/{combination}.csv")
+                    if cache_dir:
+                        cond_prob_df.to_csv(f"{cache_dir}/{combination}.csv")
                 # conditional_probabilities = pd.concat(
                 #     [conditional_probabilities, cond_prob_df],
                 #     ignore_index=True,

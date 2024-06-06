@@ -1,3 +1,4 @@
+from calendar import c
 import re
 from tqdm import tqdm  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
@@ -18,10 +19,13 @@ def convert_format(input_string):
         y = match.group(2)
         return f"P({y} | {x})"
     else:
-        return None
+        return input_string
 
 
 def make_heatmap(flatten_conditional_probabilities: dict[str, pd.DataFrame]):
+
+    skipped_list_empty = []
+    skipped_list_failed = []
 
     for key in tqdm(
         flatten_conditional_probabilities.keys(), desc="MAKING COOCCURRENCE HEATMAP"
@@ -33,7 +37,7 @@ def make_heatmap(flatten_conditional_probabilities: dict[str, pd.DataFrame]):
             .pivot(index="Base", columns="Target", values="Probability")
         )
         if pivot_table.empty:
-            info(f"{key}: Empty data. Skipping...")
+            skipped_list_empty.append(key)
             continue
         # ヒートマップを描画
         try:
@@ -45,4 +49,10 @@ def make_heatmap(flatten_conditional_probabilities: dict[str, pd.DataFrame]):
             plt.tight_layout()
             export_image(fig, key, "cooccurrence/heatmap", quiet=True)
         except:
-            info(f"Failed to make heatmap of {key}. Skipping...")
+            skipped_list_failed.append(key)
+            continue
+
+    if skipped_list_empty:
+        info(f"Combinations {skipped_list_empty} was skipped: Empty data.")
+    if skipped_list_failed:
+        info(f"Combinations {skipped_list_failed} was skipped: Failed to make heatmap.")

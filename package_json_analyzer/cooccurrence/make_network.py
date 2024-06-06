@@ -1,3 +1,4 @@
+from unittest import skip
 import networkx as nx  # type: ignore
 from tqdm import tqdm  # type: ignore
 import matplotlib.pyplot as plt
@@ -8,11 +9,15 @@ from ..common.logger import *
 
 
 def make_network(flatten_conditional_probabilities):
+
+    skipped_list_empty = []
+    skipped_list_failed = []
+
     keys = flatten_conditional_probabilities.keys()
 
     for key in tqdm(keys, desc="MAKING COOCCURRENCE NETWORK"):
         if flatten_conditional_probabilities[key].empty:
-            info(f"{key}: Empty data. Skipping...")
+            skipped_list_empty.append(key)
             continue
         try:
             # ネットワーク図の描画
@@ -49,4 +54,10 @@ def make_network(flatten_conditional_probabilities):
             plt.title(key)
             export_image(fig, key, "cooccurrence/network", quiet=True)
         except:
-            info(f"Failed to make network of {key}. Skipping...")
+            skipped_list_failed.append(key)
+            continue
+
+    if skipped_list_empty:
+        info(f"Combinations {skipped_list_empty} was skipped: Empty data.")
+    if skipped_list_failed:
+        info(f"Combinations {skipped_list_failed} was skipped: Failed to make network.")

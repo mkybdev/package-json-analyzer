@@ -42,9 +42,18 @@ def main():
     rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)
 
-    # run_all(data)
-    print(data.head(10))
-    print(data.columns)
+    run_all(
+        data,
+        intersection_list=["dependencies", "devDependencies"],
+        cooccurrence_list=[
+            "license",
+            "keywords",
+            "files",
+            "dependencies",
+            "devDependencies",
+        ],
+        clustering_list=["scripts", "devDependencies", "dependencies", "keywords"],
+    )
 
 
 if __name__ == "__main__":
