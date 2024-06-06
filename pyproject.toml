@@ -19,7 +19,8 @@ dependencies = [
     'matplotlib',
     'seaborn',
     'pyvis',
-    'PyYAML'
+    'PyYAML',
+    'yamlcore',
 ]
 # インストール時のコマンドを書きます。
 [project.scripts]

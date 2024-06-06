@@ -3,6 +3,7 @@ import pickle
 import random
 import json
 import yaml  # type: ignore
+import yamlcore  # type: ignore
 from appdirs import user_cache_dir  # type: ignore
 
 from .load_dump import load_dump
@@ -25,17 +26,21 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
                         package_data = json.load(f)
                         loaded_data.append(package_data)
                     except json.JSONDecodeError as e:
-                        error(f"Error decoding JSON from {package_json_path}: {e}")
+                        print(
+                            f"Error decoding JSON from {package_json_path}: {e}. Skipping this file."
+                        )
             elif any(filename.endswith(".yml") for filename in filenames):
                 for filename in filenames:
                     if filename.endswith(".yml"):
                         yml_path = os.path.join(dirpath, filename)
                         with open(yml_path, "r", encoding="utf-8") as f:
                             try:
-                                yml_data = yaml.safe_load(f)
+                                yml_data = yaml.load(f, Loader=yamlcore.CoreLoader)
                                 loaded_data.append(yml_data)
                             except:
-                                error(f"Error decoding YAML from {yml_path}")
+                                print(
+                                    f"Error decoding YAML from {yml_path}. Skipping this file."
+                                )
 
         if name is None:
             info("Loaded data, but dump name not provided. Continuing without dumping.")
