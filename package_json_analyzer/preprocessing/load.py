@@ -12,7 +12,12 @@ from ..common.logger import *
 from ..common import constants
 
 
-def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
+def load(
+    root_dir: str,
+    sample: int = -1,
+    name: str = "",
+    out_dir: str = os.path.join(os.path.expanduser("~"), "Downloads"),
+) -> list[dict]:
 
     loaded_data: list[dict] = []
     skipped_files = []
@@ -43,7 +48,7 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
         if skipped_files:
             info(f"Skipped loading {len(skipped_files)} files: {skipped_files}")
 
-        if name is None:
+        if name == "":
             info("Loaded data, but dump name not provided. Continuing without dumping.")
 
         else:
@@ -70,7 +75,7 @@ def load(root_dir: str, sample: int, name: str, out_dir: str) -> list[dict]:
                 pass
             constants.OUTPUT_PATH = os.path.join(out_dir, root_dir)
 
-    if sample is None:
+    if sample < 0:
         info(f"Loaded {len(loaded_data)} packages.")
         return loaded_data
     else:

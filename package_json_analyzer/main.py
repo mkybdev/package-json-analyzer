@@ -1,10 +1,9 @@
 import argparse
 import os
 
-from package_json_analyzer.common.run_all import run_all
+from .common import run_all
 
-from .preprocessing.load import load
-from .preprocessing.preprocess import preprocess
+from .preprocessing import load, preprocess
 from .common.logger import *
 from .common import constants
 

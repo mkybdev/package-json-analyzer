@@ -18,6 +18,7 @@ dependencies = [
     'IPython',
     'matplotlib',
     'seaborn',
+    'scikit-learn',
     'pyvis',
     'PyYAML',
     'yamlcore',
