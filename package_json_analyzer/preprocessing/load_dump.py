@@ -1,9 +1,9 @@
 import os
 import pickle
+
 from appdirs import user_cache_dir  # type: ignore
 
-from ..common.logger import *
-from ..common import constants
+from package_json_analyzer.common import constants, logger
 
 
 def load_dump(name: str) -> list[dict]:
@@ -15,7 +15,7 @@ def load_dump(name: str) -> list[dict]:
     if os.path.exists(cache_file_path):
         with open(cache_file_path, "rb") as cache_file:
             loaded_data = pickle.load(cache_file)
-            info("Loaded data from cache.")
+            logger.info("Loaded data from cache.")
         return loaded_data
     else:
         return []

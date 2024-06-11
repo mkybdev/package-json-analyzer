@@ -1,16 +1,15 @@
-from .get_duplication import get_duplication
-from .get_frequency import get_frequency
-from ..common.logger import *
-from ..common.export_df import export_df
-
 import pandas as pd
 from tqdm import tqdm  # type: ignore
+
+from package_json_analyzer.common import export_df, logger
+
+from .utils import get_duplication, get_frequency
 
 
 class Intersection:
     def __init__(self, df: pd.DataFrame, cols: list[str]):
         if not set(cols).issubset(df.columns):
-            error(f"All columns: {cols} must be in the input data.")
+            logger.error(f"All columns: {cols} must be in the input data.")
         self.df = df
         self.cols = cols
         self.dup = None

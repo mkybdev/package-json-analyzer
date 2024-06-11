@@ -1,11 +1,8 @@
 import argparse
 import os
 
-from .common import run_all
-
-from .preprocessing import load, preprocess
-from .common.logger import *
-from .common import constants
+from package_json_analyzer.common import constants, logger, run_all
+from package_json_analyzer.preprocessing import load, preprocess
 
 
 def main():
@@ -36,7 +33,7 @@ def main():
             constants.OUTPUT_PATH = os.path.join(args.out, args.name)
         os.makedirs(constants.OUTPUT_PATH, exist_ok=True)
     else:
-        error("Output directory does not exist.")
+        logger.error("Output directory does not exist.")
 
     rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)

@@ -1,6 +1,6 @@
-from package_json_analyzer.intersection.intersection import Intersection
-from package_json_analyzer.cooccurrence.cooccurrence import Cooccurrence
-from package_json_analyzer.clustering.clustering import Clustering
+from package_json_analyzer.clustering import Clustering
+from package_json_analyzer.cooccurrence import Cooccurrence
+from package_json_analyzer.intersection import Intersection
 
 
 def run_all(data, intersection_list=None, cooccurrence_list=None, clustering_list=None):

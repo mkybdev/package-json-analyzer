@@ -1,20 +1,16 @@
 import pandas as pd
 from tqdm import tqdm  # type: ignore
 
-from package_json_analyzer.cooccurrence.make_heatmap import make_heatmap  # type: ignore
-from package_json_analyzer.cooccurrence.make_network import make_network  # type: ignore
+from package_json_analyzer.common import export_df, format_df, logger
 
-from .get_probability import get_probability
-from .get_conditional_probability import get_conditional_probability
-from ..common.format_df import format_df
-from ..common.logger import *
-from ..common.export_df import export_df
+from .utils import get_conditional_probability  # type: ignore
+from .utils import get_probability, make_heatmap, make_network
 
 
 class Cooccurrence:
     def __init__(self, df: pd.DataFrame, cols: list[str]):
         if not set(cols).issubset(df.columns):
-            error(f"All columns: {cols} must be in the input data.")
+            logger.error(f"All columns: {cols} must be in the input data.")
         self.df = df
         self.cols = cols
         self.formatted_df = format_df(df, cols)

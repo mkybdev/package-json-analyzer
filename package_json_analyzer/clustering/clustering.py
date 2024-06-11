@@ -1,17 +1,15 @@
 import pandas as pd
+from common import export_df, format_df, logger  # type: ignore
 from tqdm import tqdm  # type: ignore
 
-from .vectorize import vectorize
-from ..common.logger import *
-from ..common.format_df import format_df
-from ..common.export_df import export_df
-from .kmeans import kmeans as km
+from .utils import kmeans as km
+from .utils import vectorize
 
 
 class Clustering:
     def __init__(self, df: pd.DataFrame, cols: list[str]):
         if not set(cols).issubset(df.columns):
-            error(f"All columns: {cols} must be in the input data.")
+            logger.error(f"All columns: {cols} must be in the input data.")
         self.df = format_df(df, cols, index="name")
         self.cols = cols
         self.X = self.df[cols]
