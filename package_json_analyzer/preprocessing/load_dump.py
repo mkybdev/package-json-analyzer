@@ -3,7 +3,7 @@ import pickle
 
 from appdirs import user_cache_dir  # type: ignore
 
-from package_json_analyzer.common import constants, logger
+from ..common import constants, logger
 
 
 def load_dump(name: str) -> list[dict]:

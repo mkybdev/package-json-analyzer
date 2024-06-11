@@ -1,8 +1,7 @@
 import pandas as pd
 from tqdm import tqdm  # type: ignore
 
-from package_json_analyzer.common import export_df, logger
-
+from ..common import export_df, logger
 from .utils import get_duplication, get_frequency
 
 

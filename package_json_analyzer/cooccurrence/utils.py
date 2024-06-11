@@ -8,7 +8,7 @@ import pandas as pd
 import seaborn as sns  # type: ignore
 from tqdm import tqdm  # type: ignore
 
-from package_json_analyzer.common import constants, export_image, logger
+from ..common import constants, export_image, logger
 
 
 def get_conditional_probability(

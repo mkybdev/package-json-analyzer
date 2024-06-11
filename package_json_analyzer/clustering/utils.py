@@ -10,8 +10,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
 from sklearn.manifold import TSNE  # type: ignore
 from sklearn.preprocessing import StandardScaler  # type: ignore
 
-# from package_json_analyzer.common import export_image  # type: ignore
-from package_json_analyzer.common import export_image, logger
+from ..common import export_image, logger
 
 
 def get_pca_loadings(X_tfidf: pd.DataFrame, X: pd.DataFrame):

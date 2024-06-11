@@ -1,8 +1,9 @@
 import os
 
-import constants  # type: ignore
-import logger  # type: ignore
 import pandas as pd
+
+from . import constants  # type: ignore
+from . import logger  # type: ignore
 
 
 def export_df(df: pd.DataFrame, dir: str, name: str, quiet: bool = False):

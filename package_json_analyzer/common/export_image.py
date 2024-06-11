@@ -1,9 +1,10 @@
 import os
 
-import constants  # type: ignore
-import logger  # type: ignore
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+
+from . import constants  # type: ignore
+from . import logger  # type: ignore
 
 
 def export_image(fig: Figure, name: str, dir: str, quiet: bool = False):

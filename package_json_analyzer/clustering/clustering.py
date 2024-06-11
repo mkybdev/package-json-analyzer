@@ -1,7 +1,7 @@
 import pandas as pd
-from common import export_df, format_df, logger  # type: ignore
 from tqdm import tqdm  # type: ignore
 
+from ..common import export_df, format_df, logger  # type: ignore
 from .utils import kmeans as km
 from .utils import vectorize
 

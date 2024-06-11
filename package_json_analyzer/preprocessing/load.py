@@ -8,8 +8,7 @@ import yamlcore  # type: ignore
 from appdirs import user_cache_dir  # type: ignore
 from tqdm import tqdm  # type: ignore
 
-from package_json_analyzer.common import constants, logger
-
+from ..common import constants, logger
 from .load_dump import load_dump
 
 

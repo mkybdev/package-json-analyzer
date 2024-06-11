@@ -1,8 +1,8 @@
 import argparse
 import os
 
-from package_json_analyzer.common import constants, logger, run_all
-from package_json_analyzer.preprocessing import load, preprocess
+from .common import constants, logger, run_all
+from .preprocessing import load, preprocess
 
 
 def main():
