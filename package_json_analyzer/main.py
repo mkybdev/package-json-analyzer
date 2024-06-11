@@ -1,8 +1,9 @@
 import argparse
 import os
 
-from .common import constants, logger, run_all
+from .common import constants, logger
 from .preprocessing import load, preprocess
+from .run_all import run_all
 
 
 def main():
@@ -13,9 +14,11 @@ def main():
         type=str,
         help="Path to the directory containing package.json files / Name of dumped dataset",
     )
-    parser.add_argument("-s", "--sample", type=int, help="Number of samples to analyze")
     parser.add_argument(
-        "-n", "--name", type=str, help="Name of the dataset to be dumped"
+        "-s", "--sample", type=int, default=-1, help="Number of samples to analyze"
+    )
+    parser.add_argument(
+        "-n", "--name", type=str, default="", help="Name of the dataset to be dumped"
     )
     parser.add_argument(
         "-o",
@@ -27,7 +30,7 @@ def main():
     args = parser.parse_args()
 
     if os.path.exists(args.out):
-        if args.name is None:
+        if args.name == "":
             constants.OUTPUT_PATH = os.path.join(args.out, "pja_output")
         else:
             constants.OUTPUT_PATH = os.path.join(args.out, args.name)

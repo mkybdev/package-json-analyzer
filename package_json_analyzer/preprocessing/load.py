@@ -14,9 +14,9 @@ from .load_dump import load_dump
 
 def load(
     root_dir: str,
-    sample: int = -1,
-    name: str = "",
-    out_dir: str = os.path.join(os.path.expanduser("~"), "Downloads"),
+    sample: int,
+    name: str,
+    out_dir: str,
 ) -> list[dict]:
 
     loaded_data: list[dict] = []

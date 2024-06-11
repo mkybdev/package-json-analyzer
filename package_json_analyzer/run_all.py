@@ -1,6 +1,6 @@
-from ..clustering import Clustering
-from ..cooccurrence import Cooccurrence
-from ..intersection import Intersection
+from .clustering import Clustering
+from .cooccurrence import Cooccurrence
+from .intersection import Intersection
 
 
 def run_all(data, intersection_list=None, cooccurrence_list=None, clustering_list=None):
