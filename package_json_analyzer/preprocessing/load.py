@@ -3,8 +3,6 @@ import os
 import pickle
 import random
 
-import yaml  # type: ignore
-import yamlcore  # type: ignore
 from appdirs import user_cache_dir  # type: ignore
 from tqdm import tqdm  # type: ignore
 

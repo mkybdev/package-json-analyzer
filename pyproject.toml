@@ -20,8 +20,6 @@ dependencies = [
     'seaborn',
     'scikit-learn',
     'pyvis',
-    'PyYAML',
-    'yamlcore',
 ]
 # インストール時のコマンドを書きます。
 [project.scripts]
