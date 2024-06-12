@@ -1,9 +1,13 @@
 import argparse
 import os
 
+from .clustering import Clustering
 from .common import constants, logger
+from .cooccurrence import Cooccurrence
+from .intersection import Intersection
 from .preprocessing import load, preprocess
 from .run_all import run_all
+from .statistics import Statistics
 
 
 def main():
@@ -41,18 +45,26 @@ def main():
     rawData = load(args.target, args.sample, args.name, args.out)
     data = preprocess(rawData)
 
-    run_all(
-        data,
-        intersection_list=["dependencies", "devDependencies"],
-        cooccurrence_list=[
-            "license",
-            "keywords",
-            "files",
-            "dependencies",
-            "devDependencies",
-        ],
-        clustering_list=["scripts", "devDependencies", "dependencies", "keywords"],
-    )
+    Statistics(data).run()
+
+    # Intersection(data, ["dependencies", "devDependencies"]).run()
+    # Cooccurrence(
+    #     data, ["license", "keywords", "files", "dependencies", "devDependencies"]
+    # ).run()
+    # Clustering(data, ["scripts", "devDependencies", "dependencies", "keywords"]).run()
+
+    # run_all(
+    #     data,
+    #     intersection_list=["dependencies", "devDependencies"],
+    #     cooccurrence_list=[
+    #         "license",
+    #         "keywords",
+    #         "files",
+    #         "dependencies",
+    #         "devDependencies",
+    #     ],
+    #     clustering_list=["scripts", "devDependencies", "dependencies", "keywords"],
+    # )
 
 
 if __name__ == "__main__":
