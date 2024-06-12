@@ -46,12 +46,11 @@ def main():
     data = preprocess(rawData)
 
     Statistics(data).run()
-
-    # Intersection(data, ["dependencies", "devDependencies"]).run()
-    # Cooccurrence(
-    #     data, ["license", "keywords", "files", "dependencies", "devDependencies"]
-    # ).run()
-    # Clustering(data, ["scripts", "devDependencies", "dependencies", "keywords"]).run()
+    Intersection(data, ["dependencies", "devDependencies"]).run()
+    Cooccurrence(
+        data, ["license", "keywords", "files", "dependencies", "devDependencies"]
+    ).run()
+    Clustering(data, ["scripts", "devDependencies", "dependencies", "keywords"]).run()
 
     # run_all(
     #     data,
@@ -65,6 +64,8 @@ def main():
     #     ],
     #     clustering_list=["scripts", "devDependencies", "dependencies", "keywords"],
     # )
+
+    logger.info("\nAll analysis completed.\n")
 
 
 if __name__ == "__main__":

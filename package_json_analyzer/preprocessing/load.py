@@ -24,6 +24,8 @@ def load(
 
     if os.path.exists(root_dir):
 
+        print("")
+
         for dirpath, _, filenames in tqdm(os.walk(root_dir), desc="LOADING DATA"):
 
             if "package.json" in filenames:
@@ -34,16 +36,6 @@ def load(
                         loaded_data.append(package_data)
                     except:
                         skipped_files.append(package_json_path)
-            elif any(filename.endswith(".yml") for filename in filenames):
-                for filename in filenames:
-                    if filename.endswith(".yml"):
-                        yml_path = os.path.join(dirpath, filename)
-                        with open(yml_path, "r", encoding="utf-8") as f:
-                            try:
-                                yml_data = yaml.load(f, Loader=yamlcore.CoreLoader)
-                                loaded_data.append(yml_data)
-                            except:
-                                skipped_files.append(yml_path)
 
         if skipped_files:
             logger.info(f"Skipped loading {len(skipped_files)} files: {skipped_files}")
