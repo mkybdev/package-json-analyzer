@@ -20,9 +20,9 @@ def load(
     loaded_data: list[dict] = []
     skipped_files = []
 
-    if os.path.exists(root_dir):
+    print("")
 
-        print("")
+    if os.path.exists(root_dir):
 
         for dirpath, _, filenames in tqdm(os.walk(root_dir), desc="LOADING DATA"):
 
@@ -39,9 +39,7 @@ def load(
             logger.info(f"Skipped loading {len(skipped_files)} files: {skipped_files}")
 
         if name == "":
-            logger.info(
-                "Loaded data, but dump name not provided. Continuing without dumping."
-            )
+            logger.info("Dump name not provided. Continuing without dumping.")
 
         else:
             cache_dir = os.path.join(
